@@ -1,1 +1,3 @@
-Hola
+<?php
+	echo "Hola por aca";
+?>
