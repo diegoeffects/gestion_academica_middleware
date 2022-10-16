@@ -1,6 +1,5 @@
 {
     "require": {
-		"ext-soap": "*",
-		"php": ">7.4.0"
+		"ext-soap": "*"
     }
 }
