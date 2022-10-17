@@ -40,7 +40,7 @@
                 }
             </style>
             <body>
-            <h1>Sistema de gestión académica<br>Universidad Nacional de Lanús</h1>
+            <h1>Sistema de Gestión Académica<br>Universidad Nacional de Lanús</h1>
             </body>'
             , $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true);
 

@@ -1,3 +1,3 @@
 <?php
-	echo "Hola por aca";
+	echo "Sistemas Distribuidos - UNLa";
 ?>

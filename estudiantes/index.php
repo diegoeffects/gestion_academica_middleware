@@ -1,21 +1,17 @@
 <?php
 
-	// SOAP ESTUIANTES
+	# SOAP ESTUIANTES
 
 	$operacion = $_GET["operacion"];
-	
-	//echo "<pre>";
-	//print_r($respuesta->{'return'});
-	//echo "</pre>";
 
     try{
         //$wsdl_url = 'http://localhost:1515/ws/estudiantes?wsdl';
-		//$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
-		$wsdl_url = 'https://gestion-academica-soap.herokuapp.com/estudiantes?wsdl';
+		$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
+		//$wsdl_url = 'https://gestion-academica-soap.herokuapp.com/estudiantes?wsdl';
 		
         $soapClient = new SOAPClient($wsdl_url);
 		
-		// OPERACION traerInscripciones
+		# OPERACION traerInscripciones
 		if($operacion == "traerInscripciones"){
 			
 			$resultado = $soapClient->traerInscripciones();
@@ -24,7 +20,7 @@
 			echo json_encode($resultado->{'return'});
 			
 		}
-		// OPERACION traerDetallesInscripcionPorEstudiante
+		# OPERACION traerDetallesInscripcionPorEstudiante
 		elseif($operacion == "traerDetallesInscripcionPorEstudiante"){
 			
 			$idUsuario = $_GET["idUsuario"];
@@ -39,7 +35,7 @@
 			echo json_encode($resultado);
 			
 		}
-		// OPERACION traerMateriasPorInscripcionPorCarrera
+		# OPERACION traerMateriasPorInscripcionPorCarrera
 		elseif($operacion == "traerMateriasPorInscripcionPorCarrera"){
 			
 			$idInscripcion = $_GET["idInscripcion"];
@@ -56,7 +52,7 @@
 			echo json_encode($resultado);
 			
 		}
-		// OPERACION agregarDetalleInscripcion	
+		# OPERACION agregarDetalleInscripcion	
 		elseif($operacion == "agregarDetalleInscripcion"){
 			
 			$idUsuario = $_GET["idUsuario"];
@@ -75,7 +71,7 @@
 			echo json_encode($resultado);	
 			
 		}
-		// OPERACION bajaDetalleInscripcion
+		# OPERACION bajaDetalleInscripcion
 		elseif($operacion == "bajaDetalleInscripcion"){
 			
 			$idDetalleInscripcion = $_GET["idDetalleInscripcion"];
@@ -90,7 +86,7 @@
 			echo json_encode($resultado);
 			
 		}
-		// OPERACION actualizarDatosEstudiante
+		# OPERACION actualizarDatosEstudiante
 		elseif($operacion == "actualizarDatosUsuario"){
 			
 			$idUsuario = $_GET["idUsuario"];
@@ -109,7 +105,7 @@
 			echo json_encode($resultado);
 			
 		}
-		// OPERACION actualizarDatosEstudianteAdministrador
+		# OPERACION actualizarDatosEstudianteAdministrador
 		elseif($operacion == "actualizarDatosUsuarioPorAdministrador"){
 			
 			$idUsuario = $_GET["idUsuario"];
