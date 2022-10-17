@@ -1,6 +1,6 @@
 <?php
 
-	// SOAP REPORTES
+	# SOAP REPORTES
 
 	$operacion = $_GET["operacion"];
 	
@@ -15,65 +15,88 @@
 		if($operacion == "traerHistorialAcademicoPorEstudiante"){
 			
 			$idUsuario = $_GET["idUsuario"];
-			$data = null;
 			
 			$parametros = array(
-				'idUsuario' => $idUsuario,
+				'idUsuario' => $idUsuario
 			);
 
 			$estudianteWS = $soapClient->traerEstudianteConCarrera($parametros);
 			$historialAcademicoWS = $soapClient->traerHistorialAcademicoPorEstudiante($parametros);
 			
-			if(isset($estudianteWS->{'return'})){
+			if( (isset($estudianteWS->{'return'})) && (isset($historialAcademicoWS->{'return'})) ){
 				$estudiante = $estudianteWS->{'return'};
-			}
-
-			if(isset($historialAcademicoWS->{'return'})){
 				$historialAcademicoList = $historialAcademicoWS->{'return'};
+				require_once('acciones/generarAnaliticoEstudiantePDF.php');
 			}
-			
-			/*if($data == null){
+			else{
 				$params = array(
 					'mensaje' => 'El estudiante no existe o no posee historial academico',
 				);
 				header("Content-Type: application/json");
 				echo json_encode($params);
 			}
-			else{
-				header("Content-Type: application/json");
-				echo json_encode($data);
-			}*/
-			
-			require_once('acciones/generarAnaliticoEstudiantePDF.php');
-			
+
 		}
-		# OPERACION traerComisionesPorInscripcionEInstancia
-		elseif($operacion == "traerComisionesPorInscripcionYCarrera"){
+		# OPERACION traerComisionesPorInscripcionYCarreraYTurno
+		elseif($operacion == "traerComisionesPorInscripcionYCarreraYTurno"){
 	
 			$idInscripcion = $_GET["idInscripcion"];
 			$idCarrera = $_GET["idCarrera"];
+			$idTurno = $_GET["idTurno"];
 
 			$data = null;
 			
 			$parametros = array(
 				'idInscripcion' => $idInscripcion,
 				'idCarrera' => $idCarrera,
+				'idTurno' => $idTurno
 			);
 
-			$materiaWS = $soapClient->traerComisionesPorInscripcionYCarrera($parametros);
+			$materiaWS = $soapClient->traerComisionesPorInscripcionYCarreraYTurno($parametros);
 			$cabeceraPlanillaMaterias = $soapClient->traerCabeceraPlanillaMaterias($parametros);
 			
-			if(isset($materiaWS->{'return'})){
+			if( (isset($materiaWS->{'return'})) && (isset($materiaWS->{'return'})) ){
 				$materiasList = $materiaWS->{'return'};
-			}
-
-			if(isset($materiaWS->{'return'})){
 				$cabecera = $cabeceraPlanillaMaterias->{'return'};
+				require_once('acciones/generarPlanillaMateriasPDF.php');
 			}
-			
-			require_once('acciones/generarPlanillaMaterias.php');
+			else{
+				$params = array(
+					'mensaje' => 'No existen materias asociadas para la carrera y turno solicitado',
+				);
+				header("Content-Type: application/json");
+				echo json_encode($params);
+			}
 			
 		}
+		# OPERACION traerEstudiantesPorComision
+		elseif($operacion == "traerEstudiantesPorComision"){
+	
+			$idComision = $_GET["idComision"];
+			
+			$parametros = array(
+				'idComision' => $idComision
+			);
+
+			$estudiantesWS = $soapClient->traerInscripcionesPorComision($parametros);
+			$cabeceraPlanillaEstudiantes = $soapClient->traerCabeceraPlanillaEstudiantes($parametros);
+			
+			if( (isset($estudiantesWS->{'return'})) && (isset($cabeceraPlanillaEstudiantes->{'return'})) ){
+				$estudiantesList = $estudiantesWS->{'return'};
+				$cabecera = $cabeceraPlanillaEstudiantes->{'return'};
+				require_once('acciones/generarListadoInscriptosExcel.php');
+			}
+			else{
+				$params = array(
+					'mensaje' => 'No existen estudiantes asociados para la comision solicitada',
+				);
+				header("Content-Type: application/json");
+				echo json_encode($params);
+			}
+
+		}
+
+		
     }
     catch(Exception $ex){
         echo "Exception ocurred: " . $ex;
