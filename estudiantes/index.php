@@ -6,8 +6,8 @@
 
     try{
         //$wsdl_url = 'http://localhost:1515/ws/estudiantes?wsdl';
-		$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
-		//$wsdl_url = 'https://gestion-academica-soap.herokuapp.com/estudiantes?wsdl';
+		//$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
+		$wsdl_url = 'https://gestion-academica-soap.herokuapp.com/estudiantes?wsdl';
 		
         $soapClient = new SOAPClient($wsdl_url);
 		
