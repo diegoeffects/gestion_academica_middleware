@@ -1,11 +1,10 @@
 <?php
 
-	# SOAP ESTUIANTES
+	# SOAP ESTUDIANTES
 
 	$operacion = $_GET["operacion"];
 
     try{
-        //$wsdl_url = 'http://localhost:1515/ws/estudiantes?wsdl';
 		//$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
 		$wsdl_url = 'https://gestion-academica-soap.herokuapp.com/estudiantes?wsdl';
 		

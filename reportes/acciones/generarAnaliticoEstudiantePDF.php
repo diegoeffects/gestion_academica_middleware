@@ -6,30 +6,16 @@
 ** GENERAR PDF DE ANALITICO DE ESTUDIANTE
 **
 */
-    # VARIABLES
-    
-    //$convocatorias = array();
 
-    //$identificadoresConvocatorias = $_POST["convocatorias"];
-
-    //$identificadoresConvocatorias = unserialize($identificadoresConvocatorias);
-
-    // TCPDF LIBRARY
+    # TCPDF LIBRARY
     require_once('tcpdf/tcpdf.php');
 
-    #   PERSONALIZACION DEL HEADER
     class TCPDFSga extends TCPDF {
 
         public function Header() {
-
-            # LOGO
             $image_file = K_PATH_IMAGES.'logoUNLa.png';
             $this->Image($image_file, 10, 10, 15, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-            # FUENTE
             $this->SetFont('helvetica', 'B', 20);
-            # TITULO
-            //$this->Cell($w, $h=0, $txt='', $border=0, $ln=2, $align='', $fill=0, $link='', $stretch=0, $ignore_min_height=false, $calign='T', $valign='M')
-            // writeHTMLCell($w, $h, $x, $y, $html='', $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true)
             $this->writeHTMLCell(0, 150, 0, 0, $html='
             <style>
                 h1{
@@ -43,13 +29,10 @@
             <h1>Sistema de Gestión Académica<br>Universidad Nacional de Lanús</h1>
             </body>'
             , $border=0, $ln=0, $fill=0, $reseth=true, $align='', $autopadding=true);
-
         }
 
         public function Footer() {
-            // Position at 15 mm from bottom
             $this->SetY(-20);
-            // Set font
             $this->SetFont('helvetica', 'I', 8);
 
             $html='
@@ -70,7 +53,6 @@
             </body>';
 
             $this->writeHTMLCell(0, 0, '', '', $html, 0, 0, false, "L", true);
-
             $this->Cell(0, 18, 'Página '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
         }
 
@@ -85,59 +67,62 @@
     $pdf->SetTitle('Analitico de estudiante');
     $pdf->SetSubject('Analitico de estudiante');
     $pdf->SetKeywords('UNLa, analitico, estudiante, sga');
-
-    // MARGENES
     $pdf->SetMargins(7, 32, 7);
-    // SET AUTO PAGE BREAKS
     $pdf->SetAutoPageBreak(TRUE, 38);
-
     $pdf->AddPage();
     $pdf->setPage($pdf->getPage());
 
-    // VARIABLES
-
-    $carrera = $estudiante->{'carrera'};
-    $estudiante = $estudiante->{'estudiante'};
+    # VARIABLES
+    $error = $materiasAprobadas->{'error'};
+    $estado = $materiasAprobadas->{'estado'};
+    $carrera = $materiasAprobadas->{'carrera'};
+    $estudiante = $materiasAprobadas->{'estudiante'};
     $promedio = 0;
 
-    $html = "
-        <style>
+    if($estado == "SUCCESS"){
 
-            th {
-                height: 25px;
-            }
+        $html = "
+            <style>
 
-            th.firstColumn {
-                width: 40%;
-            }
+                th {
+                    height: 25px;
+                }
 
-            th.secondColumn {
-                width: 30%;
-            }
-            
-            th.thirdColumn {
-                width: 15%;
-            }
+                th.firstColumn {
+                    width: 40%;
+                }
 
-            th.fourthColumn {
-                width: 15%;
-            }
+                th.secondColumn {
+                    width: 30%;
+                }
+                
+                th.thirdColumn {
+                    width: 15%;
+                }
 
-            td {
-                display: table-cell;
-                height: 25px;
-                border-top: 0.5px dashed #888888;
-            }
+                th.fourthColumn {
+                    width: 15%;
+                }
 
-        </style>
-        <body>
-            <b>Analítico de estudiante</b>
-            <br><br>
-            <b>Carrera</b>: $carrera
-            <br>
-            <b>Estudiante</b>: $estudiante
-            <br><br><br>
-            <table>
+                td {
+                    display: table-cell;
+                    height: 25px;
+                    border-top: 0.5px dashed #888888;
+                }
+
+            </style>
+            <body>
+                <b>Analítico de estudiante</b>
+                <br><br>
+                <b>Carrera</b>: $carrera
+                <br>
+                <b>Estudiante</b>: $estudiante
+                <br><br><br>";
+    
+
+            if(isset($materiasAprobadas->{'materiasAprobadas'})){
+
+                $html .= "<table>
                 <tr>
                     <th class=\"firstColumn\">
                         <b>Materia</b>
@@ -153,39 +138,79 @@
                     </th>
                 </tr>";
 
-        foreach ($historialAcademicoList as $historialAcademico) {
+                if(is_array($materiasAprobadas->{'materiasAprobadas'})){
 
-            $materia = $historialAcademico->{'materia'};
-            $fecha = date("d/m/Y", strtotime($historialAcademico->{'fecha'}));      
-            $nota = $historialAcademico->{'nota'};
-            $docente = $historialAcademico->{'docente'};
-            $promedio = $promedio + intval($nota);
+                    $materiasAprobadasList = $materiasAprobadas->{'materiasAprobadas'};
 
-            $html .= "
-                    <tr>
-                        <td>
-                            $materia
-                        </td>
-                        <td>
-                            $docente
-                         </td>
-                        <td>
-                            $fecha
-                        </td>
-                        <td>
-                            $nota
-                        </td>
-                    </tr>";
+                    foreach ($materiasAprobadasList as $materiaAprobada) {
+                        $materia = $materiaAprobada->{'materia'};
+                        $fecha = date("d/m/Y", strtotime($materiaAprobada->{'fecha'}));      
+                        $nota = $materiaAprobada->{'nota'};
+                        $docente = $materiaAprobada->{'docente'};
+                        $promedio = $promedio + intval($nota);
+            
+                        $html .= "
+                                <tr>
+                                    <td>
+                                        $materia
+                                    </td>
+                                    <td>
+                                        $docente
+                                    </td>
+                                    <td>
+                                        $fecha
+                                    </td>
+                                    <td>
+                                        $nota
+                                    </td>
+                                </tr>";
+            
+                    }
+            
+                    $promedio = $promedio/count($materiasAprobadasList);
+                }
+                else{
 
-        }
+                    $materiaAprobada = $materiasAprobadas->{'materiasAprobadas'};
 
-        $promedio = $promedio/count($historialAcademicoList);
+                    $materia = $materiaAprobada->{'materia'};
+                    $fecha = date("d/m/Y", strtotime($materiaAprobada->{'fecha'}));
+                    $nota = $materiaAprobada->{'nota'};
+                    $docente = $materiaAprobada->{'docente'};
+                    $promedio = $nota;
+        
+                    $html .= "
+                            <tr>
+                                <td>
+                                    $materia
+                                </td>
+                                <td>
+                                    $docente
+                                </td>
+                                <td>
+                                    $fecha
+                                </td>
+                                <td>
+                                    $nota
+                                </td>
+                            </tr>";
+                }
 
-        $html .= "
-            </table>
-            <br><br><br>
-            <b>Promedio general:</b> $promedio
-        </body>";
+                $html .= "
+                    </table>
+                    <br><br><br>
+                    <b>Promedio general:</b> $promedio
+                </body>";
+
+            }
+            else{   
+                $html .= "El estudiante no posee materias aprobadas con final.
+                </body>";
+            }
+    }
+    else{
+        $html = $error;
+    }
 
     # AGREGO EL CONTENIDO AL PDF
     $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
@@ -195,13 +220,7 @@
     # D: send to the browser and force a file download with the name given by name.
     # F: save to a local file with the name given by name (may include a path).
     # S: return the document as a string. name is ignored. 
-    //$pdf->Output('convocatotorias.pdf', 'D');
 
-    //$pdf->Output(__DIR__.'..\..\archivos\analiticoEstudiante.pdf', 'F');
-
-    $pdf->Output(__DIR__.'..\..\archivos\analiticoEstudiante.pdf', 'I');
-
-    // $url = "../archivos/analitico.pdf";
-    //header("Location: $url");
+    $pdf->Output('analiticoEstudiante.pdf', 'I');
 
 ?>
