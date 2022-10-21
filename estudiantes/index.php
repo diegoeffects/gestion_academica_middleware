@@ -19,16 +19,21 @@
 			echo json_encode($resultado->{'return'});
 			
 		}
-		# OPERACION traerDetallesInscripcionPorEstudiante
-		elseif($operacion == "traerDetallesInscripcionPorEstudiante"){
-			
-			$idUsuario = $_GET["idUsuario"];
-			
+		# OPERACION traerInscripcionesPorEstudiante
+		elseif($operacion == "traerInscripcionesPorEstudiante"){
+
+			if(isset($_GET["idUsuario"])){
+				$idUsuario = $_GET["idUsuario"];
+			}
+			else{
+				$idUsuario = 99999;
+			}
+
 			$parametros = array(
 				'idUsuario' => $idUsuario,
 			);
 			
-			$resultado = $soapClient->traerDetallesInscripcionPorEstudiante($parametros);
+			$resultado = $soapClient->traerInscripcionesPorEstudiante($parametros);
 			
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
@@ -36,9 +41,20 @@
 		}
 		# OPERACION traerMateriasPorInscripcionPorCarrera
 		elseif($operacion == "traerMateriasPorInscripcionPorCarrera"){
-			
-			$idInscripcion = $_GET["idInscripcion"];
-			$idCarrera = $_GET["idCarrera"];
+
+			if(isset($_GET["idInscripcion"])){
+				$idInscripcion = $_GET["idInscripcion"];
+			}
+			else{
+				$idInscripcion = 99999;
+			}
+
+			if(isset($_GET["idCarrera"])){
+				$idCarrera = $_GET["idCarrera"];
+			}
+			else{
+				$idCarrera = 99999;
+			}
 			
 			$parametros = array(
 				'idInscripcion' => $idInscripcion,
@@ -51,35 +67,57 @@
 			echo json_encode($resultado);
 			
 		}
-		# OPERACION agregarDetalleInscripcion	
-		elseif($operacion == "agregarDetalleInscripcion"){
-			
-			$idUsuario = $_GET["idUsuario"];
-			$idInscripcion = $_GET["idInscripcion"];
-			$idComision = $_GET["idComision"];
-			
+		# OPERACION altaInscripcionEstudiante	
+		elseif($operacion == "altaInscripcionEstudiante"){
+
+			if(isset($_GET["idUsuario"])){
+				$idUsuario = $_GET["idUsuario"];
+			}
+			else{
+				$idUsuario = 99999;
+			}
+
+			if(isset($_GET["idInscripcion"])){
+				$idInscripcion = $_GET["idInscripcion"];
+			}
+			else{
+				$idInscripcion = 99999;
+			}
+
+			if(isset($_GET["idComision"])){
+				$idComision = $_GET["idComision"];
+			}
+			else{
+				$idComision = 99999;
+			}
+
 			$parametros = array(
 				'idUsuario' => $idUsuario,
 				'idInscripcion' => $idInscripcion,
 				'idComision' => $idComision,
 			);
 			
-			$resultado = $soapClient->agregarDetalleInscripcion($parametros);
+			$resultado = $soapClient->altaInscripcionEstudiante($parametros);
 			
 			header("Content-Type: application/json");
-			echo json_encode($resultado);	
+			echo json_encode($resultado);
 			
 		}
-		# OPERACION bajaDetalleInscripcion
-		elseif($operacion == "bajaDetalleInscripcion"){
-			
-			$idDetalleInscripcion = $_GET["idDetalleInscripcion"];
+		# OPERACION bajaInscripcionEstudiante
+		elseif($operacion == "bajaInscripcionEstudiante"){
+
+			if(isset($_GET["idDetalleInscripcion"])){
+				$idDetalleInscripcion = $_GET["idDetalleInscripcion"];
+			}
+			else{
+				$idDetalleInscripcion = 99999;
+			}
 			
 			$parametros = array(
 				'idDetalleInscripcion' => $idDetalleInscripcion,
 			);
 			
-			$resultado = $soapClient->bajaDetalleInscripcion($parametros);
+			$resultado = $soapClient->bajaInscripcionEstudiante($parametros);
 			
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
@@ -87,10 +125,27 @@
 		}
 		# OPERACION actualizarDatosEstudiante
 		elseif($operacion == "actualizarDatosUsuario"){
-			
-			$idUsuario = $_GET["idUsuario"];
-			$correo = $_GET["correo"];
-			$celular = $_GET["celular"];
+
+			if(isset($_GET["idUsuario"])){
+				$idUsuario = $_GET["idUsuario"];
+			}
+			else{
+				$idUsuario = 99999;
+			}
+
+			if(isset($_GET["correo"])){
+				$correo = $_GET["correo"];
+			}
+			else{
+				$correo = "";
+			}
+		
+			if(isset($_GET["celular"])){
+				$celular = $_GET["celular"];
+			}
+			else{
+				$celular = "";
+			}
 			
 			$parametros = array(
 				'idUsuario' => $idUsuario,
@@ -106,13 +161,48 @@
 		}
 		# OPERACION actualizarDatosEstudianteAdministrador
 		elseif($operacion == "actualizarDatosUsuarioPorAdministrador"){
-			
-			$idUsuario = $_GET["idUsuario"];
-			$nombre = $_GET["nombre"];
-			$apellido = $_GET["apellido"];
-			$dni = $_GET["dni"];
-			$correo = $_GET["correo"];
-			$celular = $_GET["celular"];
+
+			if(isset($_GET["idUsuario"])){
+				$idUsuario = $_GET["idUsuario"];
+			}
+			else{
+				$idUsuario = 99999;
+			}
+
+			if(isset($_GET["nombre"])){
+				$nombre = $_GET["nombre"];
+			}
+			else{
+				$nombre = "";
+			}
+
+			if(isset($_GET["apellido"])){
+				$apellido = $_GET["apellido"];
+			}
+			else{
+				$apellido = "";
+			}
+
+			if(isset($_GET["dni"])){
+				$dni = $_GET["dni"];
+			}
+			else{
+				$dni = "";
+			}
+
+			if(isset($_GET["correo"])){
+				$correo = $_GET["correo"];
+			}
+			else{
+				$correo = "";
+			}
+
+			if(isset($_GET["celular"])){
+				$celular = $_GET["celular"];
+			}
+			else{
+				$celular = "";
+			}
 			
 			$parametros = array(
 				'idUsuario' => $idUsuario,

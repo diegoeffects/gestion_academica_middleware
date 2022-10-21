@@ -1,3 +1,3 @@
 <?php
-	echo "Sistemas Distribuidos - UNLa";
+	echo "Sistemas Distribuidos Grupo 4 - UNLa";
 ?>
