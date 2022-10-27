@@ -10,10 +10,10 @@
 		
         $soapClient = new SOAPClient($wsdl_url);
 		
-		# OPERACION traerInscripciones
-		if($operacion == "traerInscripciones"){
+		# OPERACION traerInscripcionesActivas
+		if($operacion == "traerInscripcionesActivas"){
 			
-			$resultado = $soapClient->traerInscripciones();
+			$resultado = $soapClient->traerInscripcionesActivas();
 			
 			header("Content-Type: application/json");
 			echo json_encode($resultado->{'return'});
