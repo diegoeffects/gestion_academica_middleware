@@ -2,7 +2,12 @@
 
 	# SOAP ESTUDIANTES
 
-	$operacion = $_GET["operacion"];
+	if(isset($_GET["operacion"])){
+		$operacion = $_GET["operacion"];
+	}
+	else{
+		$operacion = "";
+	}
 
     try{
 		//$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/estudiantes?wsdl';
@@ -146,11 +151,19 @@
 			else{
 				$celular = "";
 			}
+
+			if(isset($_GET["clave"])){
+				$clave = $_GET["clave"];
+			}
+			else{
+				$clave = "";
+			}
 			
 			$parametros = array(
 				'idUsuario' => $idUsuario,
 				'correo' => $correo,
 				'celular' => $celular,
+				'clave' => $clave,
 			);
 			
 			$resultado = $soapClient->actualizarDatosUsuario($parametros);
@@ -218,6 +231,9 @@
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
+		}
+		elseif($operacion == ""){
+			echo "ATENCION: No se especifico ninguna operación valida"
 		}
     }
     catch(Exception $ex){
