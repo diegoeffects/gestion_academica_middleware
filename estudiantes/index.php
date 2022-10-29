@@ -233,7 +233,7 @@
 			
 		}
 		elseif($operacion == ""){
-			echo "ATENCION: No se especifico ninguna operación valida"
+			echo "ATENCION: No se especifico ninguna operación valida";
 		}
     }
     catch(Exception $ex){

@@ -2,7 +2,12 @@
 
 	# SOAP REPORTES
 
-	$operacion = $_GET["operacion"];
+	if(isset($_GET["operacion"])){
+		$operacion = $_GET["operacion"];
+	}
+	else{
+		$operacion = "";
+	}
 	
     try{
 		//$wsdl_url = 'http://localhost:8080/JAXWS-SSDD/reportes?wsdl';
@@ -112,6 +117,37 @@
 				echo json_encode($params);
 			}
 			
+		}
+		# REPORTE LISTADO DE COMISIONES POR INSTANCIA Y MATERIA
+		# OPERACION traerComisionesPorInstanciaYMateria
+		elseif($operacion == "traerComisionesPorInstanciaYMateria"){
+
+			if(isset($_GET["idInstancia"])){
+				$idInstancia = $_GET["idInstancia"];
+			}
+			else{
+				$idInstancia = 99999;
+			}
+			if(isset($_GET["idMateria"])){
+				$idMateria = $_GET["idMateria"];
+			}
+			else{
+				$idMateria = 99999;
+			}
+			
+			$parametros = array(
+				'idInstancia' => $idInstancia,
+				'idMateria' => $idMateria
+			);
+
+			$resultado = $soapClient->traerComisionesPorInstanciaYMateria($parametros);
+			
+			header("Content-Type: application/json");
+			echo json_encode($resultado);
+			
+		}
+		elseif($operacion == ""){
+			echo "ATENCION: No se especifico ninguna operación valida";
 		}
 		
     }
