@@ -20,6 +20,9 @@
 			
 			$resultado = $soapClient->traerInscripcionesActivas();
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado->{'return'});
 			
@@ -40,6 +43,9 @@
 			
 			$resultado = $soapClient->traerInscripcionesPorEstudiante($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
@@ -68,6 +74,9 @@
 			
 			$resultado = $soapClient->traerMateriasPorInscripcionPorCarrera($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
@@ -104,6 +113,9 @@
 			
 			$resultado = $soapClient->altaInscripcionEstudiante($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
@@ -124,6 +136,9 @@
 			
 			$resultado = $soapClient->bajaInscripcionEstudiante($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
@@ -168,6 +183,9 @@
 			
 			$resultado = $soapClient->actualizarDatosUsuario($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
@@ -228,6 +246,9 @@
 			
 			$resultado = $soapClient->actualizarDatosUsuarioPorAdministrador($parametros);
 			
+			header('Access-Control-Allow-Origin: *');
+			header('Access-Control-Allow-Methods: POST, GET, OPTIONS, PUT, DELETE');
+			header('Access-Control-Allow-Headers: Content-Type, X-Auth-Token, Origin, Authorization');
 			header("Content-Type: application/json");
 			echo json_encode($resultado);
 			
