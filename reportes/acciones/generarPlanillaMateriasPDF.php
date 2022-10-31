@@ -66,9 +66,9 @@
     # INFORMACION DEL DOCUMENTO
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor('UNLa');
-    $pdf->SetTitle('Analitico de estudiante');
-    $pdf->SetSubject('Analitico de estudiante');
-    $pdf->SetKeywords('UNLa, analitico, estudiante, sga');
+    $pdf->SetTitle('Planilla de materias');
+    $pdf->SetSubject('Planilla de materias');
+    $pdf->SetKeywords('UNLa, planilla, materias, sga');
     $pdf->SetMargins(7, 32, 7);
     $pdf->SetAutoPageBreak(TRUE, 38);
     $pdf->AddPage('L');

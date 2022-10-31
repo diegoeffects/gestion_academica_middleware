@@ -21,7 +21,7 @@
 
     if($estudiantesInscriptos->{'idInstancia'} == 1){
 
-        fputs($archivoExcel, "Orden;Apellido;Nombre;DNI;Parcial 1;Parcial 2;Parcial 3;Rec. 1;Rec. 2;Rec. 3;TP1;TP2;TP3;Nota Cursada" . PHP_EOL);
+        fputs($archivoExcel, "Orden;Apellido;Nombre;DNI;Parcial 1;Parcial 2;Nota Cursada" . PHP_EOL);
 
         if(isset($estudiantesInscriptos->{'estudiantesInscriptos'})){
 
@@ -31,8 +31,7 @@
             
                 foreach ($estudiantesInscriptosList as $estudianteInscripto) {
             
-                    $estudianteString = $estudianteInscripto->{'orden'} . ";" . $estudianteInscripto->{'apellido'} . ";" . $estudianteInscripto->{'nombre'} . ";" . $estudianteInscripto->{'dni'} . ";" . $estudianteInscripto->{'primerParcial'} . ";" . $estudianteInscripto->{'segundoParcial'} . ";" . $estudianteInscripto->{'tercerParcial'} . ";" . $estudianteInscripto->{'primerRecuperatorio'} . ";" . $estudianteInscripto->{'segundoRecuperatorio'} . ";" . $estudianteInscripto->{'tercerRecuperatorio'} . ";" . $estudianteInscripto->{'tp1'} . ";" . $estudianteInscripto->{'tp2'} . ";" . $estudianteInscripto->{'tp3'}
-                    . ";" . $estudianteInscripto->{'notaCursada'};
+                    $estudianteString = $estudianteInscripto->{'orden'} . ";" . $estudianteInscripto->{'apellido'} . ";" . $estudianteInscripto->{'nombre'} . ";" . $estudianteInscripto->{'dni'} . ";" . $estudianteInscripto->{'primerParcial'} . ";" . $estudianteInscripto->{'segundoParcial'} . ";" . $estudianteInscripto->{'notaCursada'};
             
                     fwrite($archivoExcel, $estudianteString . PHP_EOL);
             
@@ -43,8 +42,7 @@
 
                 $estudianteInscripto= $estudiantesInscriptos->{'estudiantesInscriptos'};
 
-                $estudianteString = $estudianteInscripto->{'orden'} . ";" . $estudianteInscripto->{'apellido'} . ";" . $estudianteInscripto->{'nombre'} . ";" . $estudianteInscripto->{'dni'} . ";" . $estudianteInscripto->{'primerParcial'} . ";" . $estudianteInscripto->{'segundoParcial'} . ";" . $estudianteInscripto->{'tercerParcial'} . ";" . $estudianteInscripto->{'primerRecuperatorio'} . ";" . $estudianteInscripto->{'segundoRecuperatorio'} . ";" . $estudianteInscripto->{'tercerRecuperatorio'} . ";" . $estudianteInscripto->{'tp1'} . ";" . $estudianteInscripto->{'tp2'} . ";" . $estudianteInscripto->{'tp3'}
-                . ";" . $estudianteInscripto->{'notaCursada'};
+                $estudianteString = $estudianteInscripto->{'orden'} . ";" . $estudianteInscripto->{'apellido'} . ";" . $estudianteInscripto->{'nombre'} . ";" . $estudianteInscripto->{'dni'} . ";" . $estudianteInscripto->{'primerParcial'} . ";" . $estudianteInscripto->{'segundoParcial'} . ";" . $estudianteInscripto->{'notaCursada'};
         
                 fwrite($archivoExcel, $estudianteString . PHP_EOL);
 
