@@ -159,6 +159,8 @@
             $docente = $historialAcademico->{'docente'};
             $promedio = $promedio + intval($nota);
 
+            $promedio = round($promedio, 2);
+
             $html .= "
                     <tr>
                         <td>
@@ -178,6 +180,8 @@
         }
 
         $promedio = $promedio/count($historialAcademicoList);
+
+        $promedio = round($promedio, 2);
 
         $html .= "
             </table>

@@ -148,6 +148,8 @@
                         $nota = $materiaAprobada->{'nota'};
                         $docente = $materiaAprobada->{'docente'};
                         $promedio = $promedio + intval($nota);
+
+                        $promedio = round($promedio, 2);
             
                         $html .= "
                                 <tr>
@@ -168,6 +170,8 @@
                     }
             
                     $promedio = $promedio/count($materiasAprobadasList);
+                    
+                    $promedio = round($promedio, 2);
                 }
                 else{
 
@@ -178,6 +182,8 @@
                     $nota = $materiaAprobada->{'nota'};
                     $docente = $materiaAprobada->{'docente'};
                     $promedio = $nota;
+
+                    $promedio = round($promedio, 2);
         
                     $html .= "
                             <tr>
